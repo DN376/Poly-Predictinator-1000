@@ -14,13 +14,13 @@ def main():
 
     st.write("Subject: " + subject)
 
-    if(len(subject.split()) == 1):
-        with st.spinner("Getting articles..."):
-            google_news = GNews()
-            news = google_news.get_news(subject)
-        st.write(news[0])
-        # for article in news:
-            # st.write(article['title'])
+    with st.spinner("Getting articles..."):
+        google_news = GNews()
+        news = google_news.get_news(subject)
+    st.write("Found " + str(len(news)) + " articles")
+    st.write(news[0])
+    # for article in news:
+        # st.write(article['title'])
 
     
 main()
