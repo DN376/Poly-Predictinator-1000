@@ -26,8 +26,8 @@ For this project, I used the GNews library to access the various articles, newsp
 ## What we learned
 
 ## What's next for Quick-Report (a.k.a to-do list for the hackathon)
-[] Add Cohere AI summarizing the articles
-[] Add the full summary (combining the summaries smoothly)
-[] Turn this into a .tech domain
-[] Finish Github README.md & Devpost story
-[] Add AI voiceover using that one sponsor (?)
+[ ] Add Cohere AI summarizing the articles
+[ ] Add the full summary (combining the summaries smoothly)
+[ ] Turn this into a .tech domain
+[ ] Finish Github README.md & Devpost story
+[ ] Add AI voiceover using that one sponsor (?)
