@@ -1,6 +1,6 @@
 #this currently uses streamlit as the UI / "Frontend"
 import streamlit as st
-from newsapi import NewsApiClient
+from gnews import GNews
 import datetime
 
 
@@ -14,7 +14,13 @@ def main():
 
     st.write("Subject: " + subject)
 
+    if(len(subject.split()) == 1):
+        with st.spinner("Getting articles..."):
+            google_news = GNews()
+            news = google_news.get_news(subject)
+        st.write(news[0])
+        # for article in news:
+            # st.write(article['title'])
+
     
-
-
 main()
