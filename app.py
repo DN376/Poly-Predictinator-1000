@@ -2,6 +2,9 @@
 import streamlit as st
 from gnews import GNews
 import datetime
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
 
 
 def main():
@@ -14,13 +17,19 @@ def main():
 
     st.write("Subject: " + subject)
 
+    with st.spinner("Removing Stopwords..."):
+        cleanSubj = removeStops(subject)
+    st.write("clean = " + cleanSubj)
     with st.spinner("Getting articles..."):
         google_news = GNews()
-        news = google_news.get_news(subject)
+        news = google_news.get_news(cleanSubj)
     st.write("Found " + str(len(news)) + " articles")
     st.write(news[0])
     # for article in news:
         # st.write(article['title'])
 
-    
+def removeStops(subject):
+    cachedStopWords = stopwords.words("english")
+    return ' '.join([word for word in subject.split() if word not in cachedStopWords])
+
 main()
