@@ -24,9 +24,10 @@ def main():
         google_news = GNews()
         news = google_news.get_news(cleanSubj)
     st.write("Found " + str(len(news)) + " articles")
-    st.write(news[0])
-    # for article in news:
-        # st.write(article['title'])
+    news1 = [news[0]]
+    for article in news1:
+        article_text = google_news.get_full_article(article['url']).text
+        st.write(article_text)
 
 def removeStops(subject):
     cachedStopWords = stopwords.words("english")
