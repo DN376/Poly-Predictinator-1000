@@ -54,9 +54,14 @@ def presentOptions(news):
     return newsSelection
 
 def displayText(newsSelection, google_news):
+    st.write(newsSelection)
+    i = 1
     for article in newsSelection:
-        article_text = google_news.get_full_article(article['url']).title
-        st.write(article_text)
-        st.write("------\n")
+        with st.spinner("Acessing file #" + str(i)):
+            st.write("**File #" + str(i) + ":**")
+            article_text = google_news.get_full_article(article['url']).title
+            st.write(article_text)
+            st.write("------\n")
+            i += 1
 
 main()
