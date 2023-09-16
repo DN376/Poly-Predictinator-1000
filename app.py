@@ -53,28 +53,20 @@ def presentOptions(news, google_news):
 
 def getTopXArticles(x, news, google_news):
     newsSelection = []
-    debug = 0
     for article in news:
         full_article = google_news.get_full_article(article['url'])
-        st.write(full_article) #DEBUGGING
         if full_article is not None:
             newsSelection.append(article)
             x -= 1
-        else:
-            debug += 1
         if x == 0:
-            st.write("debug = " + str(debug)) # DEBUGGING
             return newsSelection
 
 
 def displayText(newsSelection, google_news):
-    st.write(newsSelection) # DEBUGGING
     i = 1
     for article in newsSelection:
         with st.spinner("Acessing file #" + str(i)):
             st.write("**File #" + str(i) + ":**")
-            full_article = google_news.get_full_article(article['url'])
-            st.write(full_article) # DEBUGGING
             article_text = google_news.get_full_article(article['url']).title
             st.write(article_text)
             st.write("------\n")
