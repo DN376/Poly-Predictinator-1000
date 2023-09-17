@@ -4,6 +4,7 @@ from gnews import GNews
 import datetime
 import nltk
 from nltk.corpus import stopwords
+import cohere
 nltk.download('stopwords')
 
 
@@ -16,25 +17,24 @@ def main():
 
     subject = st.text_input('**Choose a Subject to Summarize:**')
 
-    st.write("Subject: " + subject)
+    if subject is not None:
+        cleanSubj = removeStops(subject)
 
-    cleanSubj = removeStops(subject)
+        news = getArticles(cleanSubj, google_news, subject)
 
-    news = getArticles(cleanSubj, google_news)
+        st.write("Found " + str(len(news)) + " articles on " + subject)
+        
+        newsSelection = presentOptions(news, google_news)
 
-    st.write("Found " + str(len(news)) + " articles")
-    
-    newsSelection = presentOptions(news, google_news)
-
-    displayText(newsSelection, google_news)
+        displayText(newsSelection, google_news)
 
 def removeStops(subject):
-    with st.spinner("Removing Stopwords..."):
+    with st.spinner("Processing Input..."):
         cachedStopWords = stopwords.words("english")
         return ' '.join([word for word in subject.split() if word not in cachedStopWords])
 
-def getArticles(cleanSubj, google_news):
-    with st.spinner("Getting articles..."):
+def getArticles(cleanSubj, google_news, subject):
+    with st.spinner("Getting articles of \""+ subject +"\"..."):
         news = google_news.get_news(cleanSubj)
     return news
 
@@ -64,12 +64,32 @@ def getTopXArticles(x, news, google_news):
 
 def displayText(newsSelection, google_news):
     i = 1
+    newsSummary = ""
     for article in newsSelection:
-        with st.spinner("Acessing file #" + str(i)):
-            st.write("**File #" + str(i) + ":**")
-            article_text = google_news.get_full_article(article['url']).title
-            st.write(article_text)
+        with st.spinner("Summarizing Article #" + str(i) + "..."):
+            st.write("**Article #" + str(i) + ": "+ article['title'] +"**")
+            article_text = google_news.get_full_article(article['url']).text
+            summary = summarizeText(article_text, 'medium')
+            st.write(summary)
             st.write("------\n")
+            newsSummary += summary
             i += 1
+    if(i > 2):
+        st.write("**In Summary:**")
+        newsSummary
+    
+
+def summarizeText(article, len):
+    co = cohere.Client('WYbq1RzI3MniGl2xfq6iG0vKC6JeIPUptalaJwcZ')
+    response = co.summarize(
+        text=article,
+        model = 'command-nightly',
+        temperature = 0,
+        length = len,
+        format = 'paragraph',
+        extractiveness = 'low'
+    )
+    return response.summary
+
 
 main()
