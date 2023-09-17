@@ -5,7 +5,7 @@ A program that takes a user's query and summarizes recent news around that subje
 Quick Report is an AI-powered news summarization program created during Hack The North 2023! A user will enter a prompt (a person, event, etc.), Quick Report finds the most recent and relevant news articles for this prompt, and summarizes all of these articles into a single paragraph.
 
 ## Inspiration
-The main inspiration for this project was that I always had trouble doing research on recent events because different sites and articles would cover different aspects of it.
+The main inspiration for this project was that I always had trouble doing research on recent events because different sites and articles would cover different aspects of it. Even with sites like Ground News that showed different perspectives, it was still hard to process all of the different articles.
 
 ## How I built it
 For this project, I used the GNews library to access the various articles, newspaper3k to access the main texts of each article, and streamlit for the front-end / UI. Then, I used Cohere to summarize each article. I also used Github for version control and preparing for the Devpost submission.
