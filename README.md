@@ -2,7 +2,7 @@
 A program that takes a user's query and summarizes recent news around that subject!
 
 ## About Quick Report
-Quick Report is an AI-powered news summarization program! A user will enter a prompt (a person, event, etc.), Quick Report finds the most recent and relevant news articles for this prompt, and summarizes all of these articles into a single paragraph.
+Quick Report is an AI-powered news summarization program created during Hack The North 2023! A user will enter a prompt (a person, event, etc.), Quick Report finds the most recent and relevant news articles for this prompt, and summarizes all of these articles into a single paragraph.
 
 ## Inspiration
 The main inspiration for this project was that I always had trouble doing research on recent events because different sites and articles would cover different aspects of it.
@@ -19,18 +19,20 @@ For this project, I used the GNews library to access the various articles, newsp
     - Within this list of articles, many were invalid (unable to be summarized) due to several reasons (being NoneType, being too short, etc). An article filtering system had to be implemented as a solution (getTopXArticles function)
 
 ## Accomplishments that I'm proud of
-- Problem Solving
-- Github Repository Upkeep
+- **Github Repository Upkeep**
+    - This was the first application where I focused on maintaining the Github repository, ensuring all commits are descriptive and the README is comprehensive. It took a lot of effort to learn the ins and outs of Git, but I believe the results speak for themselves.
+- **Full Stack Development**
+    - This was the first hackathon where I developed the front and back end of the app by myself! Being able to go from forming an idea to implementing an entire app is an impressive milestone for me, let alone doing it in such a small timeframe.
+
+## What I learned
+- **Generative AI - Basics and Techniques**
+    - During this hackathon, I learned about and used Voiceflow and Cohere, two products in generative AI. I learned how to use it and how to incorporate as a part of my app through both the workshops and being able to work with these products in a practical application
 
 
-## What we learned
-
-## What's next for Quick-Report (temporary to-do list for the hackathon)
-- ~~Add Cohere AI summarizing the articles~~
-- ~~Add the full summary (combining the summaries smoothly)~~
-- Add AI voiceover using Voiceflow
-- Turn this into a .tech domain
-- Add css colour changes (optional)
-- Polish project(UI/UX, appearance, etc.)
-- Finish Github README.md & Devpost story
-- Make the Article searching / summarization process faster
+## What's next for Quick-Report 
+- **Add an AI assistant with VoiceFlow**
+    - An assistant that uses both text and voice such as the ones Voiceflow offers would be ideal for people who have read the summaries but still have questions
+- **Improve Article Search Process**
+    - Making the article search process with GNews faster would improve the load times and quality of life of the app
+- **Publish App**
+    - The next step would be to make this app publicly available such as through a .tech domain  
