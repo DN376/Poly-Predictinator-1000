@@ -7,19 +7,26 @@ from nltk.corpus import stopwords
 import cohere
 from dotenv import load_dotenv
 import os
+import random
+import urllib.request
+from PIL import Image
+
 nltk.download('stopwords')
 COHERE_API_KEY = os.getenv('COHERE_API_KEY')
 
-
 def main():
+    #Sets up aspects such as the streamlit website
     load_dotenv()
     st.set_page_config(page_title="Quick Report",
                        page_icon=":rolled_up_newspaper:")
-    st.header("Quick Report :rolled_up_newspaper:")
+    st.header("Quick Report :rolled_up_newspaper:\n")
     google_news = GNews()
 
+    #prompts user for input
     subject = st.text_input('**Choose a Subject to Summarize:**')
 
+    #code only continues once user presses enter to prevent error popup
+    #(note: error popup only happens on initialization)
     if subject is not None:
         cleanSubj = removeStops(subject)
 
@@ -44,21 +51,25 @@ def getArticles(cleanSubj, google_news, subject):
 
 def presentOptions(news, google_news):
     pressed = False
-    if(st.button("Main Article")):
-        newsSelection = getTopXArticles(1, news, google_news)
-        pressed = True 
-    if(st.button("Top 5 Articles")):
-        newsSelection = getTopXArticles(5, news, google_news)
-        pressed = True 
-    if(st.button("Top 10 Articles")):
-        newsSelection = getTopXArticles(10, news, google_news)
-        pressed = True 
-    if(st.button("Top 25 Articles")):
-        newsSelection = getTopXArticles(25, news, google_news)
-        pressed = True 
-    if(st.button("Top 50 Articles")):
-        newsSelection = getTopXArticles(50, news, google_news)
-        pressed = True 
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if(st.button("Main Article")):
+            newsSelection = getTopXArticles(1, news, google_news)
+            pressed = True 
+        if(st.button("Top 5 Articles")):
+            newsSelection = getTopXArticles(5, news, google_news)
+            pressed = True 
+    with col2:
+        if(st.button("Top 10 Articles")):
+            newsSelection = getTopXArticles(10, news, google_news)
+            pressed = True 
+        if(st.button("Top 25 Articles")):
+            newsSelection = getTopXArticles(25, news, google_news)
+            pressed = True 
+    with col3:
+        if(st.button("Top 50 Articles")):
+            newsSelection = getTopXArticles(50, news, google_news)
+            pressed = True 
     if pressed:
         return newsSelection
 
@@ -77,13 +88,16 @@ def getTopXArticles(x, news, google_news):
 def displayText(newsSelection, google_news):
     i = 1
     newsSummary = ""
+    images = []
     for article in newsSelection:
         with st.spinner("Summarizing Article #" + str(i) + "..."):
             st.write("**Article #" + str(i) + ": "+ article['title'] +"**")
             article_text = google_news.get_full_article(article['url']).text
             summary = summarizeText(article_text, 'medium')
+            images.extend(google_news.get_full_article(article['url']).images)
             summaryProcessed = summary.replace("$", "\$")
             st.write(summaryProcessed)
+            st.write(article['url'])
             st.write("------\n")
             newsSummary += summary
             i += 1
@@ -94,6 +108,14 @@ def displayText(newsSelection, google_news):
             fullSum = summarizeText(newsSummary,'long')
             fullProcessed = fullSum.replace("$","\$")
             st.write(fullProcessed)
+
+    if len(images) > 0:
+        rand = random.randint(0,len(images))
+        randImg = images[rand]
+        urllib.request.urlretrieve(randImg, "img.jpg")
+        img = Image.open("img.jpg")
+        st.image(img)
+
     
 
 def summarizeText(article, len):
