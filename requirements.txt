@@ -1,7 +1,6 @@
 cohere==4.27
 gnews==0.3.1
 nltk==3.7
-Pillow==9.5.0
 Pillow==10.0.1
 python-dotenv==1.0.0
 streamlit==1.18.1
