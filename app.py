@@ -1,15 +1,11 @@
 #this currently uses streamlit as the UI / "Frontend"
 import streamlit as st
 from gnews import GNews
-import datetime
 import nltk
 from nltk.corpus import stopwords
 import cohere
 from dotenv import load_dotenv
 import os
-import random
-import urllib.request
-from PIL import Image
 
 nltk.download('stopwords')
 COHERE_API_KEY = os.getenv('COHERE_API_KEY')
