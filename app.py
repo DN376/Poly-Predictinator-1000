@@ -27,7 +27,7 @@ def main():
 
     #code only continues once user presses enter to prevent error popup
     #(note: error popup only happens on initialization)
-    if subject is not None:
+    if subject is not "":
         cleanSubj = removeStops(subject)
 
         news = getArticles(cleanSubj, google_news, subject)
@@ -109,12 +109,12 @@ def displayText(newsSelection, google_news):
             fullProcessed = fullSum.replace("$","\$")
             st.write(fullProcessed)
 
-    if len(images) > 0:
-        rand = random.randint(0,len(images))
-        randImg = images[rand]
-        urllib.request.urlretrieve(randImg, "img.jpg")
-        img = Image.open("img.jpg")
-        st.image(img)
+    # if len(images) > 0:
+    #     rand = random.randint(0,len(images)-1)
+    #     randImg = images[rand]
+    #     urllib.request.urlretrieve(randImg, "img.jpg")
+    #     img = Image.open("img.jpg")
+    #     st.image(img)
 
     
 
